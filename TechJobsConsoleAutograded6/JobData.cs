@@ -1,9 +1,8 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace TechJobsConsoleAutograded6
 {
-	public class JobData
+    public class JobData
 	{
         static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
         static bool IsDataLoaded = false;
@@ -47,7 +46,21 @@ namespace TechJobsConsoleAutograded6
             // load data, if not already loaded
             LoadData();
 
-            return null;
+            List<Dictionary<string, string>> foundJobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary< string, string> job in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> jobDetail in job)
+                {
+                    if (jobDetail.Value.Contains(value, StringComparison.OrdinalIgnoreCase))
+                    {
+                        foundJobs.Add(job);
+                        break;
+                    }
+                }
+            }
+
+            return foundJobs;
         }
 
         /**
@@ -70,7 +83,7 @@ namespace TechJobsConsoleAutograded6
 
 
                 //TODO: Make search case-insensitive
-                if (aValue.Contains(value))
+                if (aValue.Contains(value, StringComparison.OrdinalIgnoreCase))
                 {
                     jobs.Add(row);
                 }
